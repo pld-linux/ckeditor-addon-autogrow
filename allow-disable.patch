@@ -1,0 +1,46 @@
+--- autogrow/plugin.js	2013-11-14 13:14:39.000000000 +0200
++++ autogrow/plugin.js	2014-01-22 11:37:50.747323000 +0200
+@@ -40,6 +40,10 @@
+ 		if ( !editor.window )
+ 			return null;
+ 
++		if (editor.config.autoGrow_disabled && typeof editor.config.autoGrow_disabled != 'undefined') {
++			return null;
++		}
++
+ 		var maximize = editor.getCommand( 'maximize' );
+ 			// Disable autogrow when the editor is maximized .(#6339)
+ 		if( maximize && maximize.state == CKEDITOR.TRISTATE_ON )
+@@ -84,7 +88,8 @@
+ 			editor.on( 'instanceReady', function() {
+ 
+ 				var editable = editor.editable(),
+-					lastHeight;
++					lastHeight,
++					lastResizedHeight;
+ 
+ 				// Simply set auto height with div wysiwyg.
+ 				if ( editable.isInline() )
+@@ -92,6 +97,22 @@
+ 				// For framed wysiwyg we need to resize the editor.
+ 				else
+ 				{
++					editor.addCommand( 'autogrowDisable', {
++						exec: function( editor ) {
++							editor.resize( '100%', lastResizedHeight, true );
++						}
++					} );
++					editor.addCommand( 'autogrowEnable', {
++						exec: function( editor, a ) {
++							var scrollable = getScrollable( editor ),
++								currentHeight = editor.window.getViewPaneSize().height;
++							if (!currentHeight) {
++								currentHeight = parseInt(editor.config.height);
++							}
++							lastResizedHeight = currentHeight;
++							lastHeight = resizeEditor( editor );
++						}
++					} );
+ 					editor.addCommand( 'autogrow', {
+ 						exec: function( editor ) {
+ 							lastHeight = resizeEditor( editor, lastHeight );

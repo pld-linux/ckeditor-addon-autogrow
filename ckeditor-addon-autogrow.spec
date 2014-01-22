@@ -8,6 +8,7 @@ License:	LGPL v2.1+ / GPL v2+ / MPL
 Group:		Applications/WWW
 Source0:	http://download.ckeditor.com/autogrow/releases/autogrow_%{version}.zip
 # Source0-md5:	47d9ff305241de389e60c0c73de27d13
+Patch0:		allow-disable.patch
 URL:		http://ckeditor.com/addon/autogrow
 BuildRequires:	rpmbuild(macros) >= 1.553
 BuildRequires:	sed >= 4.0
@@ -31,6 +32,7 @@ Note: This plugin is to be used with the themedui creato
 
 %prep
 %setup -qc
+%patch0 -p0
 mv %{addon}/samples .
 
 %install
