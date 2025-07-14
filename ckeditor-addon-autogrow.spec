@@ -32,7 +32,7 @@ Note: This plugin is to be used with the themedui creato
 
 %prep
 %setup -qc
-%patch0 -p0
+%patch -P0 -p0
 mv %{addon}/samples .
 
 %install
