@@ -2,7 +2,7 @@
 Summary:	AutoGrow plugin
 Name:		ckeditor-addon-%{addon}
 Version:	4.2.3
-Release:	1
+Release:	2
 # License: same as ckeditor
 License:	LGPL v2.1+ / GPL v2+ / MPL
 Group:		Applications/WWW
